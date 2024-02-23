@@ -1,5 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/navbar/navbar";
+import Sidebar from "./components/sidebar/sidebar";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +15,38 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+      </head>
+      <body>
+{/*        
+        <div  className="w-full h-[100vh]">
+        <div className="w-full h-[10%]  bg-stone-800">
+          <Navbar/>
+        </div>
+        <div className="w-full h-[90%] flex" >
+          <div className="w-[20%] h-full bg-stone-800">
+            <Sidebar/>
+          </div>
+          <div className="w-[80%] h-full">
+          {children}
+          </div>
+        </div>
+        </div> */}
+
+
+<div className=" h-[100vh] ">
+
+{children}
+</div>
+
+
+        
+       
+      </body>
     </html>
   );
 }

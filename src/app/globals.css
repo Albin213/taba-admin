@@ -2,32 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --primary: transparent;
+    --secondary: rgb(98, 97, 99);
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  *{
+    font-family: "Poppins" ,sans-serif;
+    scrollbar-width: thin;
+   scrollbar-color: var(--secondary) var(--primary);
+ }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 6px;
   }
+  
+  *::-webkit-scrollbar-track {
+    background: var(--primary);
+    border-radius: 6px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 14px;
+    border: 3px solid var(--primary);
+  }
+
+
+  
+
+
+.bg-login{
+    background-image: url('/bg-lawyer.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-admin {
+    background-image: url('/scales-of-justice.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+.bg-member-approval {
+  background-image: url('/member-request.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+}
+
+.bg-members-list {
+  background-image: url('/list.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+}
+
+.bg-payment {
+  background-image: url('/payment.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+}
+
+.bg-reset {
+  background-image: url('/reset.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+}
+
+.bg-committee {
+  background-image: url('/committee.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
+}
+
+.bg-notification {
+  background-image: url('/notification.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 100%;
 }
