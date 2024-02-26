@@ -3,7 +3,7 @@ import React from 'react'
 function View(props) {
 
 
-   console.log(props.user);
+   // console.log(props.user);
   return (
     <div className='w-[100vw] h-[100vh] backdrop-blur-sm absolute top-0 left-0 flex justify-center items-center '>
     <div className='w-[900px] h-[500px] bg-slate-200  top-[190px] left-[400px] rounded border-b-2 border-blue-900'>
