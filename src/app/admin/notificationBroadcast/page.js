@@ -80,17 +80,17 @@ function MembersList() {
         const {title , body} = message;
     
         if(title && body) {
-            console.log(JSON.stringify(message));
+            // console.log(JSON.stringify(message));
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/notification/send-broadcast-notification`, message)
             .then(res =>{
-                console.log(res);
+                // console.log(res);
                 alert(res.data);
                 setTimeout(() => {
                     window.location.href = "/admin/notificationBroadcast";    
                 }, 100);
             })
             .catch(err => {
-                console.log('error',err.response.data);
+                // console.log('error',err.response.data);
                 alert(err.response.data);
             })
         } else {
