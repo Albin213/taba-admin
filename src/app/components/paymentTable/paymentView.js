@@ -35,7 +35,7 @@ function PaymentView(props) {
         }
         const userId = props.user._id;
 
-        console.log(dueData, userId);
+        // console.log(dueData, userId);
 
         if(dueAmount) {
 
@@ -46,13 +46,13 @@ function PaymentView(props) {
                 window.location.href = "/admin/payments";
 
                 setDueAmount("");
-                console.log("window");
+                // console.log("window");
 
-                console.log("window");
+                // console.log("window");
 
             })
             .catch(err => {
-                console.log('error',err.response.data);
+                // console.log('error',err.response.data);
                 alert(err.response.data.message);
             });
 
@@ -80,21 +80,21 @@ function PaymentView(props) {
         };
         const userId = props.user._id;
 
-        console.log(data, userId);
+        // console.log(data, userId);
 
         if(amount) {
 
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/updatePayment/${userId}`, data)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 alert(res.data.message);
                 setAmount("");
-                console.log("window");
+                // console.log("window");
                 window.location.href = "/admin/payments";
 
             })
             .catch(err => {
-                console.log('error',err.response.data);
+                // console.log('error',err.response.data);
                 alert(err.response.data.message);
             });
 
