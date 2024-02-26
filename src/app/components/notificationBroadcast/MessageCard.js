@@ -54,7 +54,7 @@ function MessageCard(props) {
             const {title , body} = message;
         
             if(title && body) {
-                console.log(JSON.stringify(message));
+                // console.log(JSON.stringify(message));
 
                 const notification = {
                     regNo : props.member.regNo,
@@ -62,12 +62,12 @@ function MessageCard(props) {
                     title: title,
                     body : body
                 }                
-                console.log(notification);
+                // console.log(notification);
 
 
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/notification/send-notification`, notification)
                 .then(res =>{
-                    console.log(res);
+                    // console.log(res);
                     alert(res.data);
                     setMessage({
                         title : "",
@@ -78,7 +78,7 @@ function MessageCard(props) {
                     // }, 100);
                 })
                 .catch(err => {
-                    console.log('error',err.response.data);
+                    // console.log('error',err.response.data);
                     alert(err.response.data);
                 })
             } else {
