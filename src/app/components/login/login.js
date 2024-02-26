@@ -31,10 +31,10 @@ function Login() {
         const {userName , password} = data;
     
         if(userName && password) {
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/login`, data)
             .then(res =>{
-                console.log(res.data);
+                // console.log(res.data);
                 localStorage.setItem("isLoggedIn", "true");
                 alert(res.data.message);
                 setTimeout(() => {
@@ -42,7 +42,7 @@ function Login() {
                 }, 1000);
             })
             .catch(err => {
-                console.log('error',err.response.data);
+                // console.log('error',err.response.data);
                 alert(err.response.data.message);
             })
         }
@@ -60,7 +60,7 @@ function Login() {
         setShowPopup(true);
     }
 
-    console.log(process.env.NEXT_PUBLIC_API_URL);
+    // console.log(process.env.NEXT_PUBLIC_API_URL);
 
   return (
     <>
