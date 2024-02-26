@@ -23,14 +23,14 @@ function PasswordReset(props) {
     const {userName , newPassword} = data;
 
     if(userName && newPassword) {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/reset-password`, data)
         .then(res =>{
-            console.log(res.data);
+            // console.log(res.data);
             alert(res.data.message);
         })
         .catch(err => {
-            console.log('error',err.response.data);
+            // console.log('error',err.response.data);
             alert(err.response.data.message);
         })
     }
