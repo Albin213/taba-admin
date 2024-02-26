@@ -22,11 +22,11 @@ function ForgotPassword(props) {
           to : email
         })
         .then(res =>{
-            console.log(res.data);
+            // console.log(res.data);
             alert(res.data.message);
         })
         .catch(err => {
-            console.log('error',err.response.data);
+            // console.log('error',err.response.data);
             alert(err.response.data.message);
         })
     }
