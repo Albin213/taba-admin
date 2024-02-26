@@ -149,7 +149,15 @@ function MemberRequest() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [data, setData] = useState([]);
 
+  const [loggedIn, setLoggedIn] = useState("");
+
+
+
   useEffect(() => {
+
+    setLoggedIn(localStorage.getItem("isLoggedIn"));
+
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admin/list-new-users`);
@@ -193,20 +201,40 @@ function MemberRequest() {
 
 
   return (
-    <div className="w-full h-[100vh]">
-      <div className="w-full h-[10%]  bg-slate-950">
-        <Navbar/>
-      </div>
-      <div className="w-full h-[90%] flex" >
-        <div className="w-[20%] h-full bg-slate-950">
-          <Sidebar/>           
-        </div>
-        <div className="bg-admin w-[80%] h-full p-8 pe-10">
-          <RequestTable data={data} handleView={handleView} setData={handleSetData} handleSearch={handleSearch}/>
-          {view && selectedUser && <View user={selectedUser} handleCloseView={handleCloseView} />}
-        </div>
-      </div>
-    </div>
+
+    <>
+      {
+        loggedIn === "true" ? 
+        (
+          <div className="w-full h-[100vh]">
+            <div className="w-full h-[10%]  bg-slate-950">
+              <Navbar/>
+            </div>
+            <div className="w-full h-[90%] flex" >
+              <div className="w-[20%] h-full bg-slate-950">
+                <Sidebar/>           
+              </div>
+              <div className="bg-admin w-[80%] h-full p-8 pe-10">
+                <RequestTable data={data} handleView={handleView} setData={handleSetData} handleSearch={handleSearch}/>
+                {view && selectedUser && <View user={selectedUser} handleCloseView={handleCloseView} />}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className='h-[100vh] w-[100vw] flex flex-col justify-center items-center'>
+            <h1 className='text-2xl mb-5'>You are logged out, please login</h1>
+            <button 
+              className='w-[200px] h-[50px] bg-blue-600 hover:bg-blue-800 text-2xl text-white rounded'
+              onClick={() => {
+                window.location.href = "/";  
+              }}
+            >Login</button>
+          </div>
+        )
+      }
+    </>
+
+    
   );
 }
 

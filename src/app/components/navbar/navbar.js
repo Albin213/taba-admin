@@ -8,6 +8,8 @@ import { IoLogOut } from "react-icons/io5";
 function Navbar() {
 
   const [logOut, setLogOut] = useState(false);
+
+ 
    
   function handleLogOut() {
     setLogOut(true);
@@ -40,7 +42,10 @@ function Navbar() {
           <div className='h-[60%] flex justify-around items-center'>
 
             <button className='w-[100px] h-[40px] rounded bg-blue-950 text-white hover:bg-blue-700' 
-            onClick={ () => { window.location.href = "/"; } }
+            onClick={ () => { 
+              localStorage.removeItem("isLoggedIn");
+              window.location.href = "/"; 
+            } }
             >
               Yes</button>
 

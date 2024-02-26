@@ -735,7 +735,15 @@ function ExecutiveCommittee() {
 
   const [editableMember, setEditableMember] = useState(null);
 
+  const [loggedIn, setLoggedIn] = useState("");
+
+
+
+
   useEffect(() => {
+
+    setLoggedIn(localStorage.getItem("isLoggedIn"));
+
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -837,345 +845,370 @@ function ExecutiveCommittee() {
   }
 
   return (
-    <div className="w-full h-[100vh]">
-      <div className="w-full h-[10%]  bg-slate-950">
-        <Navbar />
-      </div>
-      <div className="w-full h-[90%] flex">
-        <div className="w-[20%] h-full bg-slate-950">
-          <Sidebar />
-        </div>
-        <div className="bg-admin w-[80%] h-full p-8 pe-10 overflow-y-auto">
-          <div className="w-full bg-[hsla(0,0%,0%,0.4)] text-white">
-            <h1 className="text-3xl p-2">Executive Committee</h1>
-          </div>
 
-          <div className="flex justify-between h-[350px] mt-5">
-            {/* President Card */}
-            {!updatePresident ? (
-              <div className="w-[25%] h-full p-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
-                <p className="text-2xl">{president && president.description}</p>
-                <div className="w-[70%] h-[200px] mx-auto">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={president && `data:image/png;base64,${president.image}`}
-                    alt="President"
-                  />
-                </div>
-                <p className="text-xl mt-1">{president && president.name}</p>
-                <button
-                  className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                  onClick={() => setUpdatePresident(true)}
-                >
-                  Update
-                </button>
+    <>
+    
+      {
+        loggedIn === "true" ? 
+        (
+          <div className="w-full h-[100vh]">
+          <div className="w-full h-[10%]  bg-slate-950">
+            <Navbar />
+          </div>
+          <div className="w-full h-[90%] flex">
+            <div className="w-[20%] h-full bg-slate-950">
+              <Sidebar />
+            </div>
+            <div className="bg-admin w-[80%] h-full p-8 pe-10 overflow-y-auto">
+              <div className="w-full bg-[hsla(0,0%,0%,0.4)] text-white">
+                <h1 className="text-3xl p-2">Executive Committee</h1>
               </div>
-            ) : (
-              <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
-                <input
-                  className="h-5 w-full p-2 mt-1 text-2xl text-center"
-                  type="text"
-                  placeholder="President"
-                  name="description"
-                  value={updateData.description ? updateData.description : president.description}
-                  onChange={(event) => handleMemberChange(event, president)}
-                />
-                <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
-                  <label htmlFor="presidentImage">
-                    {updateData.imagePreview ? (
+    
+              <div className="flex justify-between h-[350px] mt-5">
+                {/* President Card */}
+                {!updatePresident ? (
+                  <div className="w-[25%] h-full p-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
+                    <p className="text-2xl">{president && president.description}</p>
+                    <div className="w-[70%] h-[200px] mx-auto">
                       <img
-                        className="w-[120px]  object-cover"
-                        src={updateData.imagePreview}
-                        
+                        className="w-full h-full object-cover"
+                        src={president && `data:image/png;base64,${president.image}`}
                         alt="President"
                       />
-                    ) : (
-                      <RiImageAddFill className="text-8xl" />
-                    )}
+                    </div>
+                    <p className="text-xl mt-1">{president && president.name}</p>
+                    <button
+                      className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                      onClick={() => setUpdatePresident(true)}
+                    >
+                      Update
+                    </button>
+                  </div>
+                ) : (
+                  <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
                     <input
-                      className="w-full h-full"
-                      type="file"
-                      id="presidentImage"
-                      name="image"
-                      accept="image/*"
-                      hidden
+                      className="h-5 w-full p-2 mt-1 text-2xl text-center"
+                      type="text"
+                      placeholder="President"
+                      name="description"
+                      value={updateData.description ? updateData.description : president.description}
                       onChange={(event) => handleMemberChange(event, president)}
                     />
-                  </label>
-                </div>
-                <input
-                  className="h-8 p-2 text-sm mt-1 border-black border-2"
-                  type="text"
-                  placeholder="President's name"
-                  name="name"
-                  value={updateData.name}
-                  onChange={(event) => handleMemberChange(event, president)}
-                />
-                <button
-                  className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                  onClick={() => {
-                    setUpdatePresident(false);
-                    handleSubmit(president);
-                  }}
-                >
-                  Submit
-                </button>
-              </div>
-            )}
-
-            {/* Secretary Card */}
-            {!updateSecretary ? (
-              <div className="w-[25%] h-full p-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
-                <p className="text-2xl">{secretary && secretary.description}</p>
-                <div className="w-[70%] h-[200px] mx-auto">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={secretary && `data:image/png;base64,${secretary.image}`}
-                    alt="Secretary"
-                  />
-                </div>
-                <p className="text-xl mt-1">{secretary && secretary.name}</p>
-                <button
-                  className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                  onClick={() => setUpdateSecretary(true)}
-                >
-                  Update
-                </button>
-              </div>
-            ) : (
-              <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
-                {/* Add input fields, image upload, and submit button for secretary */}
-                <input
-                  className="h-5 w-full p-2 mt-1 text-2xl text-center"
-                  type="text"
-                  placeholder="Secretary"
-                  name="description"
-                  value={updateData.description ? updateData.description : secretary.description}
-                  onChange={(event) => handleMemberChange(event, secretary)}
-                />
-                {/* Add image preview */}
-                <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
-                  <label htmlFor="secretaryImage">
-                    {updateData.imagePreview ? (
+                    <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
+                      <label htmlFor="presidentImage">
+                        {updateData.imagePreview ? (
+                          <img
+                            className="w-[120px]  object-cover"
+                            src={updateData.imagePreview}
+                            
+                            alt="President"
+                          />
+                        ) : (
+                          <RiImageAddFill className="text-8xl" />
+                        )}
+                        <input
+                          className="w-full h-full"
+                          type="file"
+                          id="presidentImage"
+                          name="image"
+                          accept="image/*"
+                          hidden
+                          onChange={(event) => handleMemberChange(event, president)}
+                        />
+                      </label>
+                    </div>
+                    <input
+                      className="h-8 p-2 text-sm mt-1 border-black border-2"
+                      type="text"
+                      placeholder="President's name"
+                      name="name"
+                      value={updateData.name}
+                      onChange={(event) => handleMemberChange(event, president)}
+                    />
+                    <button
+                      className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                      onClick={() => {
+                        setUpdatePresident(false);
+                        handleSubmit(president);
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
+    
+                {/* Secretary Card */}
+                {!updateSecretary ? (
+                  <div className="w-[25%] h-full p-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
+                    <p className="text-2xl">{secretary && secretary.description}</p>
+                    <div className="w-[70%] h-[200px] mx-auto">
                       <img
-                        className="w-[120px]  object-cover"
-                        src={updateData.imagePreview}
-                        
+                        className="w-full h-full object-cover"
+                        src={secretary && `data:image/png;base64,${secretary.image}`}
                         alt="Secretary"
                       />
-                    ) : (
-                      <RiImageAddFill className="text-8xl" />
-                    )}
+                    </div>
+                    <p className="text-xl mt-1">{secretary && secretary.name}</p>
+                    <button
+                      className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                      onClick={() => setUpdateSecretary(true)}
+                    >
+                      Update
+                    </button>
+                  </div>
+                ) : (
+                  <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
+                    {/* Add input fields, image upload, and submit button for secretary */}
                     <input
-                      className="w-full h-full"
-                      type="file"
-                      id="secretaryImage"
-                      name="image"
-                      accept="image/*"
-                      hidden
+                      className="h-5 w-full p-2 mt-1 text-2xl text-center"
+                      type="text"
+                      placeholder="Secretary"
+                      name="description"
+                      value={updateData.description ? updateData.description : secretary.description}
                       onChange={(event) => handleMemberChange(event, secretary)}
                     />
-                  </label>
-                </div>
-                {/* Add input field for name */}
-                <input
-                  className="h-8 p-2 text-sm mt-1 border-black border-2"
-                  type="text"
-                  placeholder="Secretary's name"
-                  name="name"
-                  value={updateData.name}
-                  onChange={(event) => handleMemberChange(event, secretary)}
-                />
-                {/* Add submit button */}
-                <button
-                  className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                  onClick={() => {
-                    setUpdateSecretary(false);
-                    handleSubmit(secretary);
-                  }}
-                >
-                  Submit
-                </button>
-              </div>
-            )}
-
-            {/* Librarian Card */}
-            {!updateLibrarian ? (
-              <div className="w-[25%] h-full p-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
-                <p className="text-2xl">{librarian && librarian.description}</p>
-                <div className="w-[70%] h-[200px] mx-auto">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={librarian && `data:image/png;base64,${librarian.image}`}
-                    alt="Librarian"
-                  />
-                </div>
-                <p className="text-xl mt-1">{librarian && librarian.name}</p>
-                <button
-                  className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                  onClick={() => setUpdateLibrarian(true)}
-                >
-                  Update
-                </button>
-              </div>
-            ) : (
-              <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
-                {/* Add input fields, image upload, and submit button for librarian */}
-                <input
-                  className="h-5 w-full p-2 mt-1 text-2xl text-center"
-                  type="text"
-                  placeholder="Librarian"
-                  name="description"
-                  value={updateData.description ? updateData.description : librarian.description}
-                  onChange={(event) => handleMemberChange(event, librarian)}
-                />
-                {/* Add image preview */}
-                <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
-                  <label htmlFor="librarianImage">
-                    {updateData.imagePreview ? (
+                    {/* Add image preview */}
+                    <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
+                      <label htmlFor="secretaryImage">
+                        {updateData.imagePreview ? (
+                          <img
+                            className="w-[120px]  object-cover"
+                            src={updateData.imagePreview}
+                            
+                            alt="Secretary"
+                          />
+                        ) : (
+                          <RiImageAddFill className="text-8xl" />
+                        )}
+                        <input
+                          className="w-full h-full"
+                          type="file"
+                          id="secretaryImage"
+                          name="image"
+                          accept="image/*"
+                          hidden
+                          onChange={(event) => handleMemberChange(event, secretary)}
+                        />
+                      </label>
+                    </div>
+                    {/* Add input field for name */}
+                    <input
+                      className="h-8 p-2 text-sm mt-1 border-black border-2"
+                      type="text"
+                      placeholder="Secretary's name"
+                      name="name"
+                      value={updateData.name}
+                      onChange={(event) => handleMemberChange(event, secretary)}
+                    />
+                    {/* Add submit button */}
+                    <button
+                      className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                      onClick={() => {
+                        setUpdateSecretary(false);
+                        handleSubmit(secretary);
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
+    
+                {/* Librarian Card */}
+                {!updateLibrarian ? (
+                  <div className="w-[25%] h-full p-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
+                    <p className="text-2xl">{librarian && librarian.description}</p>
+                    <div className="w-[70%] h-[200px] mx-auto">
                       <img
-                        className="w-[120px]  object-cover"
-                        src={updateData.imagePreview}
-                        
+                        className="w-full h-full object-cover"
+                        src={librarian && `data:image/png;base64,${librarian.image}`}
                         alt="Librarian"
                       />
-                    ) : (
-                      <RiImageAddFill className="text-8xl" />
-                    )}
+                    </div>
+                    <p className="text-xl mt-1">{librarian && librarian.name}</p>
+                    <button
+                      className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                      onClick={() => setUpdateLibrarian(true)}
+                    >
+                      Update
+                    </button>
+                  </div>
+                ) : (
+                  <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
+                    {/* Add input fields, image upload, and submit button for librarian */}
                     <input
-                      className="w-full h-full"
-                      type="file"
-                      id="librarianImage"
-                      name="image"
-                      accept="image/*"
-                      hidden
+                      className="h-5 w-full p-2 mt-1 text-2xl text-center"
+                      type="text"
+                      placeholder="Librarian"
+                      name="description"
+                      value={updateData.description ? updateData.description : librarian.description}
                       onChange={(event) => handleMemberChange(event, librarian)}
                     />
-                  </label>
-                </div>
-                {/* Add input field for name */}
-                <input
-                  className="h-8 p-2 text-sm mt-1 border-black border-2"
-                  type="text"
-                  placeholder="Librarian's name"
-                  name="name"
-                  value={updateData.name}
-                  onChange={(event) => handleMemberChange(event, librarian)}
-                />
-                {/* Add submit button */}
-                <button
-                  className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                  onClick={() => {
-                    setUpdateLibrarian(false);
-                    handleSubmit(librarian);
-                  }}
-                >
-                  Submit
-                </button>
-              </div>
-            )}
-          </div>
-
-
-          <div className="w-full mt-4 bg-[hsla(0,0%,0%,0.4)] text-white">
-            <h1 className="text-3xl p-2">Executive Members</h1>
-          </div>
-
-
-          <div className="w-full mt-10 flex flex-wrap justify-evenly">
-
-            {
-              execMembersArray.map((execMember, index) => {
-                return (
-                  !updateExecMember  ? (
-                    <div className="w-[23%] h-[350px] p-3 mb-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
-                      <p className="text-2xl">Executive Member</p>
-                      <div className="w-[70%] h-[200px] mx-auto">
-                        <img
-                          className="w-full h-full object-cover"
-                          src={execMember && `data:image/png;base64,${execMember.image}`}
-                          alt="Secretary"
+                    {/* Add image preview */}
+                    <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
+                      <label htmlFor="librarianImage">
+                        {updateData.imagePreview ? (
+                          <img
+                            className="w-[120px]  object-cover"
+                            src={updateData.imagePreview}
+                            
+                            alt="Librarian"
+                          />
+                        ) : (
+                          <RiImageAddFill className="text-8xl" />
+                        )}
+                        <input
+                          className="w-full h-full"
+                          type="file"
+                          id="librarianImage"
+                          name="image"
+                          accept="image/*"
+                          hidden
+                          onChange={(event) => handleMemberChange(event, librarian)}
                         />
-                      </div>
-                      <p className="text-xl mt-1">{execMember && execMember.name}</p>
-                      <button
-                        className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                        onClick={() => {setUpdateExecMember(true); setEditableMember(execMember._id)}}
-                      >
-                        Update
-                      </button>
+                      </label>
                     </div>
-                  ) : (
-
-                    editableMember === execMember._id &&
-                    
-                    <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
-                      {/* Add input fields, image upload, and submit button for secretary */}
-                      <input
-                        className="h-5 w-full p-2 mt-1 text-2xl text-center"
-                        type="text"
-                        placeholder="Executive_member"
-                        name="description"
-                        value="Executive Member"
-                        onChange={(event) => handleMemberChange(event, execMember)}
-                      />
-                      {/* Add image preview */}
-                      <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
-                        <label htmlFor="execMemberImage">
-                          {updateData.imagePreview ? (
+                    {/* Add input field for name */}
+                    <input
+                      className="h-8 p-2 text-sm mt-1 border-black border-2"
+                      type="text"
+                      placeholder="Librarian's name"
+                      name="name"
+                      value={updateData.name}
+                      onChange={(event) => handleMemberChange(event, librarian)}
+                    />
+                    {/* Add submit button */}
+                    <button
+                      className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                      onClick={() => {
+                        setUpdateLibrarian(false);
+                        handleSubmit(librarian);
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
+              </div>
+    
+    
+              <div className="w-full mt-4 bg-[hsla(0,0%,0%,0.4)] text-white">
+                <h1 className="text-3xl p-2">Executive Members</h1>
+              </div>
+    
+    
+              <div className="w-full mt-10 flex flex-wrap justify-evenly">
+    
+                {
+                  execMembersArray.map((execMember, index) => {
+                    return (
+                      !updateExecMember  ? (
+                        <div className="w-[23%] h-[350px] p-3 mb-3 bg-zinc-300 text-center border-white border-[0.5px] rounded-[12px]">
+                          <p className="text-2xl">Executive Member</p>
+                          <div className="w-[70%] h-[200px] mx-auto">
                             <img
-                              className="w-[90px]  object-cover"
-                              src={updateData.imagePreview}
-                              
-                              alt="Executive member"
+                              className="w-full h-full object-cover"
+                              src={execMember && `data:image/png;base64,${execMember.image}`}
+                              alt="Secretary"
                             />
-                          ) : (
-                            <RiImageAddFill className="text-8xl" />
-                          )}
+                          </div>
+                          <p className="text-xl mt-1">{execMember && execMember.name}</p>
+                          <button
+                            className="w-[65%] h-[40px] mt-3 bg-[#ffffffc1] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                            onClick={() => {setUpdateExecMember(true); setEditableMember(execMember._id)}}
+                          >
+                            Update
+                          </button>
+                        </div>
+                      ) : (
+    
+                        editableMember === execMember._id &&
+                        
+                        <div className="w-[25%] h-full p-3 bg-[hsla(0,0%,100%,1)] text-center border-white border-[0.5px] rounded-[12px]">
+                          {/* Add input fields, image upload, and submit button for secretary */}
                           <input
-                            className="w-full h-full"
-                            type="file"
-                            id="execMemberImage"
-                            name="image"
-                            accept="image/*"
-                            hidden
+                            className="h-5 w-full p-2 mt-1 text-2xl text-center"
+                            type="text"
+                            placeholder="Executive_member"
+                            name="description"
+                            value="Executive Member"
                             onChange={(event) => handleMemberChange(event, execMember)}
                           />
-                        </label>
-                      </div>
-                      {/* Add input field for name */}
-                      <input
-                        className="h-8 p-2 text-sm mt-1 border-black border-2"
-                        type="text"
-                        placeholder="member name"
-                        name="name"
-                        value={updateData.name}
-                        onChange={(event) => handleMemberChange(event, execMember)}
-                      />
-                      {/* Add submit button */}
-                      <button
-                        className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
-                        onClick={() => {
-                          setUpdateExecMember(false);
-                          handleSubmit(execMember);
-                        }}
-                      >
-                        Submit
-                      </button>
-                    </div>
-                  )
-                );
-              })
-            }
-          
+                          {/* Add image preview */}
+                          <div className="w-[70%] h-[200px] mx-auto flex justify-center items-center">
+                            <label htmlFor="execMemberImage">
+                              {updateData.imagePreview ? (
+                                <img
+                                  className="w-[90px]  object-cover"
+                                  src={updateData.imagePreview}
+                                  
+                                  alt="Executive member"
+                                />
+                              ) : (
+                                <RiImageAddFill className="text-8xl" />
+                              )}
+                              <input
+                                className="w-full h-full"
+                                type="file"
+                                id="execMemberImage"
+                                name="image"
+                                accept="image/*"
+                                hidden
+                                onChange={(event) => handleMemberChange(event, execMember)}
+                              />
+                            </label>
+                          </div>
+                          {/* Add input field for name */}
+                          <input
+                            className="h-8 p-2 text-sm mt-1 border-black border-2"
+                            type="text"
+                            placeholder="member name"
+                            name="name"
+                            value={updateData.name}
+                            onChange={(event) => handleMemberChange(event, execMember)}
+                          />
+                          {/* Add submit button */}
+                          <button
+                            className="w-[65%] h-[40px] mt-3 bg-[hsla(0,0%,100%,0.2)] border-black border-[0.5px]  rounded-md font-bold hover:bg-slate-300 hover:text-black"
+                            onClick={() => {
+                              setUpdateExecMember(false);
+                              handleSubmit(execMember);
+                            }}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      )
+                    );
+                  })
+                }
+              
+              </div>
+    
+    
+    
+    
+            </div>
           </div>
-
-
-
-
         </div>
-      </div>
-    </div>
+
+        ) : (
+          <div className='h-[100vh] w-[100vw] flex flex-col justify-center items-center'>
+            <h1 className='text-2xl mb-5'>You are logged out, please login</h1>
+            <button 
+              className='w-[200px] h-[50px] bg-blue-600 hover:bg-blue-800 text-2xl text-white rounded'
+              onClick={() => {
+                window.location.href = "/";  
+              }}
+            >Login</button>
+          </div>
+        )
+      }
+    
+    </>
+
+
+
+    
   );
 }
 

@@ -7,7 +7,6 @@ import axios from 'axios'
 import ForgotPassword from '../passwordReset/ForgotPassword';
 
 
-
 function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +16,7 @@ function Login() {
        userName:"",
        password:"" 
     })
+
 
     function handleOnChange(event) {
          const {name,value} = event.target
@@ -35,6 +35,7 @@ function Login() {
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/login`, data)
             .then(res =>{
                 console.log(res.data);
+                localStorage.setItem("isLoggedIn", "true");
                 alert(res.data.message);
                 setTimeout(() => {
                     window.location.href = "/admin";    
