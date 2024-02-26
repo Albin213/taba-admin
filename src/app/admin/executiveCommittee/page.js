@@ -777,7 +777,7 @@ function ExecutiveCommittee() {
     (member) => member.description === "Executive members"
   );
   // const Executive_members = execMemberArray[0];
-  console.log(execMembersArray[0]);
+  // console.log(execMembersArray[0]);
 
   function handleMemberChange(event, member) {
     const { name, value, files } = event.target;
@@ -839,7 +839,7 @@ function ExecutiveCommittee() {
         window.location.href = "/admin/executiveCommittee";
       }, 1000);
     } catch (err) {
-      console.log("error", err.response.data);
+      // console.log("error", err.response.data);
       alert(err.response.data.message);
     }
   }
