@@ -828,7 +828,7 @@ function RequestTable(props) {
         userIds: selectedUserIds,
       });
 
-      console.log('Backend response:', response.data);
+      // console.log('Backend response:', response.data);
 
       const updatedData = displayedData.filter(user => !selectedUserIds.includes(user._id));
       setDisplayedData(updatedData);
