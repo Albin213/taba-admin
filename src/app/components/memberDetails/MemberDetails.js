@@ -356,12 +356,20 @@ function MemberDetails(props) {
                        <div>{props.member.officeAddress}</div>
                    </div>
                    <div className='mb-3'>
-                       <div className='font-bold  text-blue-900'>Clerk Name</div>
-                       <div>Jasmine</div>
+                       <div className='font-bold  text-blue-900'>Clerk 1 Name</div>
+                       <div>{props.member.clerkName1}</div>
                    </div>
                    <div className='mb-3'>
-                       <div className='font-bold  text-blue-900'>Clerk phone</div>
-                       <div>987654323456</div>
+                       <div className='font-bold  text-blue-900'>Clerk 1 phone</div>
+                       <div>{props.member.clerkPhone1}</div>
+                   </div>
+                   <div className='mb-3'>
+                       <div className='font-bold  text-blue-900'>Clerk 2 Name</div>
+                       <div>{props.member.clerkName2}</div>
+                   </div>
+                   <div className='mb-3'>
+                       <div className='font-bold  text-blue-900'>Clerk 2 phone</div>
+                       <div>{props.member.clerkPhone2}</div>
                    </div>
                    <div className='mb-3'>
                        <div className='font-bold  text-blue-900'>Blood Group</div>
