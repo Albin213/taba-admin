@@ -58,21 +58,28 @@
 
 
 
+"use client"
+
 import React, { useEffect, useState } from 'react';
 import PaymentView from './paymentView'
 import axios from 'axios';
 
 function PaymentTable(props) {
+
   const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [pageNo, setPageNo] = useState(1);
 
+  console.log(pageNo);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if(searchTerm === ""){
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admin/list-valid-users`);
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/list-valid-users`,{
+            page: pageNo
+          });
           setUserData(response.data);
         }
       } catch (error) {
@@ -103,10 +110,40 @@ function PaymentTable(props) {
   };
 
 
+  const handlePage = async () => {
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/list-valid-users`, {
+        page: pageNo,
+      });
+      setUserData(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
+
+  function handleNextPage() {
+    setPageNo(pageNo + 1);
+    handlePage();
+  }
+
+  function handlePreviousPage() {
+    if(pageNo > 1) {
+      setPageNo(pageNo - 1);
+      handlePage();
+    } else {
+      return;
+    }
+  }
+
+
+
+
   return (
     <div className='w-full h-full m-0 p-0'>
       <div className='w-full h-[10%] flex justify-between items-center mb-2'>
-        <div className='w-[85%] h-full flex items-center'>
+        <div className='w-[75%] h-full flex items-center'>
           <input
               type='text'
               className='w-[90%] h-full me-2 bg-[#ffffff4e] placeholder:text-blue-950 placeholder:font-bold focus:outline-none focus:border-2 ps-5 rounded'
@@ -119,9 +156,22 @@ function PaymentTable(props) {
             />
           <button className='w-[100px] h-full rounded bg-blue-950 text-white hover:bg-blue-700' onClick={handleSearch}>
               Search
-            </button>
+          </button>
+        </div>
+
+        <div className='w-[25%] h-full flex flex-row-reverse items-center'>
+              <button 
+                className='w-[120px] h-[40px] ms-4 bg-blue-950 text-white rounded  hover:bg-blue-700'
+                onClick= {handleNextPage}
+              >{"Next >>"}</button>
+
+              <button 
+                className='w-[120px] h-[40px] bg-blue-950 text-white rounded  hover:bg-blue-700'
+                onClick= {handlePreviousPage}
+              >{"<< Previous"}</button>
         </div>
       </div>
+
       <div className='w-full h-[90%] overflow-y-auto rounded'>
 
         <table className='w-full max-h-full bg-[#edececa3] '>
@@ -164,7 +214,6 @@ function PaymentTable(props) {
 }
 
 export default PaymentTable;
-
 
 
 
