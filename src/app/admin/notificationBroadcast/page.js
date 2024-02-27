@@ -29,7 +29,7 @@ function MembersList() {
     const fetchData = async () => {
       try {
         if(searchTerm === ""){
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admin/list-valid-users`);
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/list-valid-users`);
           setMembersData(response.data);
         }
       } catch (error) {
