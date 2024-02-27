@@ -53,7 +53,7 @@ function MemberCard(props) {
             <img className="mx-auto w-[150px] h-[150px] rounded-full border-white border-4 object-cover " src={props.member.image ? "data:image/png;base64," + props.member.image : "/profile_dummy.jpeg"} alt='card'/>
         </div>
         <div className='ps-5 leading-8'>
-            <p><span className='text-blue-900 font-bold me-1'>Enrollment No:</span> {props.member.regNo}</p>
+            <p><span className='text-blue-900 font-bold me-1'>Enroll No:</span> {props.member.regNo}</p>
             <p><span className='text-blue-900 font-bold me-1'>Name:</span> {props.member.firstName}</p>
             <p><span className='text-blue-900 font-bold me-1'>Blood Group:</span> {props.member.bloodGroup}</p>
             <p><span className='text-blue-900 font-bold me-1'>Phone No:</span> +91-{props.member.phone}</p>
