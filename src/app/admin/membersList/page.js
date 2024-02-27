@@ -164,11 +164,7 @@ function MembersList() {
   const [loggedIn, setLoggedIn] = useState("");
   const [pageNo, setPageNo] = useState(1);
 
-  console.log(pageNo);
-  console.log(typeof(pageNo));
-  console.log(membersData);
-
-
+ 
 
   useEffect(() => {
 
@@ -189,7 +185,7 @@ function MembersList() {
     };
 
     fetchData();
-  }, [searchTerm]); // Empty dependency array ensures this useEffect runs only once on mount
+  }, [searchTerm, membersData]); // Empty dependency array ensures this useEffect runs only once on mount
 
   function handleViewMemberDetails(member) {
     setViewMemberDetails(true);
