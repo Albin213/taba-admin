@@ -298,7 +298,7 @@ function MemberDetails(props) {
         if (data.message === 'User deleted successfully') {
           console.log('Member deleted successfully');
           handleCloseDetails();
-          
+          window.location.href = "/admin/membersList";
         } else if (data.message === 'User not found') {
           console.error('User not found');
         } else {
