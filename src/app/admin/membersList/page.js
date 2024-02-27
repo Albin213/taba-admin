@@ -185,7 +185,7 @@ function MembersList() {
     };
 
     fetchData();
-  }, [searchTerm, membersData]); // Empty dependency array ensures this useEffect runs only once on mount
+  }, [searchTerm]); // Empty dependency array ensures this useEffect runs only once on mount
 
   function handleViewMemberDetails(member) {
     setViewMemberDetails(true);
