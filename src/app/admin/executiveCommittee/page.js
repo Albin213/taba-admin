@@ -774,7 +774,7 @@ function ExecutiveCommittee() {
   const librarian = librarianArray[0];
 
   const execMembersArray = data.filter(
-    (member) => member.description === "Executive members"
+    (member) => member.description === "Executive member"
   );
   // const Executive_members = execMemberArray[0];
   // console.log(execMembersArray[0]);
