@@ -848,7 +848,7 @@ function RequestTable(props) {
 
 
   const handleReject = async (id) => {
-    console.log(id);
+      
     const isConfirmed = window.confirm("Are you sure you want to reject this member?");
     if (isConfirmed) {
       const userId = id // Adjust this based on your data structure
