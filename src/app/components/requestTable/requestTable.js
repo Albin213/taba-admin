@@ -774,9 +774,11 @@
 
 
 
+"use client"
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { MdDelete } from "react-icons/md";
 
 function RequestTable(props) {
   const [selectAll, setSelectAll] = useState(false);
@@ -843,6 +845,46 @@ function RequestTable(props) {
     }
   };
 
+
+
+  const handleReject = async (id) => {
+    console.log(id);
+    const isConfirmed = window.confirm("Are you sure you want to reject this member?");
+    if (isConfirmed) {
+      const userId = id // Adjust this based on your data structure
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/delete/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to delete member: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.message === 'User deleted successfully') {
+          // console.log('Member deleted successfully');
+          window.location.href = "/admin/memberRequest";
+          
+        } else if (data.message === 'User not found') {
+          console.error('User not found');
+        } else {
+          console.error(`Failed to delete member: ${data.message}`);
+        }
+      })
+      .catch(error => {
+        console.error('Error while deleting member:', error);
+      });
+    }
+  };
+  
+
+
+
+
   return (
     <div className='w-full h-full m-0 p-0'>
       <div className='w-full h-[10%] flex justify-between items-center mb-2'>
@@ -876,7 +918,7 @@ function RequestTable(props) {
               <th className='sticky top-0 bg-blue-950 text-white '>Name</th>
               <th className='sticky top-0 bg-blue-950 text-white '>Enrollment No</th>
               <th className='sticky top-0 bg-blue-950 text-white '></th>
-              <th className='sticky top-0 bg-blue-950 text-white '>
+              <th className='sticky top-0 bg-blue-950 text-white w-[15%]'>
                 <input
                   type='checkbox'
                   className='w-5 h-5  border-emerald-400 border-4 me-2'
@@ -885,6 +927,7 @@ function RequestTable(props) {
                 />
                 Select All
               </th>
+              <th className='sticky top-0 bg-blue-950 text-white w-[5%]'></th>
             </tr>
           </thead>
           <tbody>
@@ -914,6 +957,15 @@ function RequestTable(props) {
                     onChange={() => handleRowCheckboxChange(index)}
                   />
                 </td>
+                <td>
+                  <MdDelete 
+                    className='text-3xl text-blue-950 hover:text-red-600 cursor-pointer'
+                    onClick={() => {
+                      // console.log(member._id);
+                      handleReject(member._id);
+                    }}
+                  />
+                </td>
               </tr>
             ))
             
@@ -935,9 +987,6 @@ function RequestTable(props) {
 }
 
 export default RequestTable;
-
-
-
 
 
 
